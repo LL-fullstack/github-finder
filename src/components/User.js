@@ -8,8 +8,6 @@ import Profile from './Profile';
 function User() {
     const { userId } = useParams();
     const {profile, setProfile} = useContext(UserContext);
-    const token = process.env.REACT_APP_GITHUB_TOKEN;
-    const options = {headers: { Authorization: `Bearer ${token}`}};
     const [repos, setRepos] = useState([]);
 
     useEffect(() => {
@@ -23,7 +21,7 @@ function User() {
 
     const fetchRepositories = async () => {
         try {
-            const response = await axios.get(profile.repos_url, options);
+            const response = await axios.get(profile.repos_url);
             console.log(response.data);
             setRepos(response.data);
         } catch (error) {
@@ -56,7 +54,7 @@ function User() {
 
     const fetchGitHubUser = async () => {
         try {
-            const response = await axios.get(`https://api.github.com/users/${userId}`, options);
+            const response = await axios.get(`https://api.github.com/users/${userId}`);
             console.log(response.data);
             const profile = new Profile(response.data);
             setProfile(profile);

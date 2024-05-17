@@ -13,9 +13,6 @@ function Search() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const token = process.env.REACT_APP_GITHUB_TOKEN;
-    const options = {headers: { Authorization: `Bearer ${token}`}};
-
     const {profile, setProfile} = useContext(UserContext);
 
     const updateInputText = (text) => {
@@ -25,7 +22,7 @@ function Search() {
 
     const fetchGitHubUsers = async () => {
         try {
-            const response = await axios.get(`https://api.github.com/users/${query}`, options);
+            const response = await axios.get(`https://api.github.com/users/${query}`);
             console.log(response.data);
             const profile = new Profile(response.data);
             setProfile(profile);

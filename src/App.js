@@ -13,10 +13,10 @@ function App() {
     <UserContext.Provider value={{profile, setProfile}}>
     <main>
       <div className="container">
-      <Router>
+      <Router basename="/github-finder">
       <AnimatePresence mode="wait">
       <Routes>
-            <Route exact path="/github-finder" element={<Search />} />
+            <Route exact path="/" element={<Search />} />
             <Route path="/user/:userId" element={<User />} />
       </Routes>
       </AnimatePresence>
