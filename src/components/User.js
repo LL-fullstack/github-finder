@@ -7,8 +7,8 @@ import Profile from './Profile';
 
 function User() {
     const { userId } = useParams();
-    const {profile, setProfile} = useContext(UserContext);
-    const [repos, setRepos] = useState([]);
+    const { profile, setProfile } = useContext(UserContext);
+    const [ repos, setRepos ] = useState([]);
 
     useEffect(() => {
         if(profile === undefined) {
@@ -44,10 +44,12 @@ function User() {
 
             return dateB - dateA;
         }).map( repo =>
-            <div key={repo.id}>
-                <a href={repo.html_url}>{repo.name}</a>
-                <p>{repo.description}</p>
-                <p>Updated at {getFormattedDate(repo.updated_at)}</p>
+            <div key={repo.id} className='repo-detail'>
+                <div className='repo-name-time'>
+                    <a href={repo.html_url}>{repo.name}</a>
+                    <p>Updated at {getFormattedDate(repo.updated_at)}</p>
+                </div>     
+                <p>{repo.description}</p>     
             </div>
         )
     }
@@ -68,36 +70,31 @@ function User() {
 
   return (
     <motion.div
-    initial={{ opacity: 0, backgroundColor: '#ffffff' }} // Initial background color
-    animate={{ opacity: 1, backgroundColor: '#ff0000' }} // Final background color
-    exit={{ opacity: 0, backgroundColor: '#ffffff' }} // Exit background color
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
     transition={{ duration: 1 }}
-        >
-    {
-        profile && profile.avatar_url && <img src={profile.avatar_url} alt="Avatar" />
-    }
-    {
-       profile && profile.name && <div>{profile.name}</div>
-    }
-    {
-       profile && profile.html_url && <a href={profile.html_url}>Go to Github</a>
-    }
-    {
-    profile && profile.repos_url && <div>{profile.repos_url}</div>
-    }
-    {
-    profile && profile.followers && <div>{profile.followers}</div>
-    }
-    {
-    profile && profile.following && <div>{profile.following}</div>
-    }
-    {
-    profile && profile.public_repos && <div>{profile.public_repos}</div>
-    }
-   <div>
-                {repos.length > 0 ? showRepos() : <div>No repositories found</div>}
+>
+    <div className="user-profile-container">
+        <section className='user-profile-section'>
+            {profile && profile.avatar_url && <img src={profile.avatar_url} alt="Avatar" />}
+            {profile && profile.name && <div className='user-name'>{profile.name}</div>}
+            <div className='repo-follower-following'>
+                {profile && <div className='repos-num'><span>{profile.public_repos}</span>repositories</div>}
+                {profile && <div className='followers-num'><span>{profile.followers}</span>followers</div>}
+                {profile && <div className='following-num'><span>{profile.following}</span>following</div>}
+            </div>
+            {profile && profile.html_url && <button className='btn-github'><a href={profile.html_url}>Go to Github</a></button>}
+        </section>
     </div>
-    </motion.div>
+    <section className='repos-detail-section'>
+        <h2>My repositories</h2>
+        <div className='show-repos'>
+            {repos.length > 0 ? <div className='repo-details'>{showRepos()}</div> : <div className='repo-not-found'>No repositories found</div>}
+        </div>
+    </section>
+    
+</motion.div> 
   )
 }
 
