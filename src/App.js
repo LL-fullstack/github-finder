@@ -16,7 +16,7 @@ function App() {
       <Router>
       <AnimatePresence mode="wait">
       <Routes>
-            <Route exact path="/" element={<Search />} />
+            <Route exact path="/github-finder" element={<Search />} />
             <Route path="/user/:userId" element={<User />} />
       </Routes>
       </AnimatePresence>
