@@ -16,3 +16,4 @@ You may also see any lint errors in the console.
 
 ## Demo
 Follow the link for Demo - https://ll-fullstack.github.io/github-finder/
+To search the repositories for a GitHub username, type the username in the search bar and press Enter to see the results if the username exists.
